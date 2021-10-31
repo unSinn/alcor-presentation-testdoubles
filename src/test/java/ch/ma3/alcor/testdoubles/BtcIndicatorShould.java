@@ -1,6 +1,5 @@
 package ch.ma3.alcor.testdoubles;
 
-import ch.ma3.alcor.testdoubles.adapter.BtcIndicator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -36,8 +35,9 @@ public class BtcIndicatorShould {
             "0.5,'GREEN'",
             "-0.5,'RED'"
     })
-    void printGreenOrRed(float percent24h, String expectedPrint) {
-        String printed = new BtcIndicator(percent24h).printGreenOrRed();
+    void printGreenOrRed_(float percent24h, String expectedPrint) {
+        String printed = new ColorIndicator(percent24h).print();
         assertThat(printed, is(expectedPrint));
     }
+
 }
