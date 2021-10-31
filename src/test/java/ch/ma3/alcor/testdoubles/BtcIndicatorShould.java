@@ -22,8 +22,8 @@ public class BtcIndicatorShould {
 
     @ParameterizedTest
     @CsvSource({
-            "123,'123'",
-            "421,'421'"
+            "123,'123.-'",
+            "421,'421.-'"
     })
     void printPriceOfBitcoin(int price, String expectedPrint) {
         String printed = new PriceIndicator(price).printPrice();
