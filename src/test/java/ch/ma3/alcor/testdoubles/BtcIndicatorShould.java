@@ -8,6 +8,8 @@ import static org.hamcrest.Matchers.is;
 
 public class BtcIndicatorShould {
 
+    private int actualPrice;
+
     /**
      * Requirements
      * - Display Price of Bitcoin
@@ -19,8 +21,9 @@ public class BtcIndicatorShould {
     }
 
     @Test
-    void fetchPriceOfBitcoin() {
-        assertThat(true, is(true));
+    void printPriceOfBitcoin() {
+        actualPrice = new BtcIndicator().printPrice();
+        assertThat(actualPrice, is(123));
     }
 
 
