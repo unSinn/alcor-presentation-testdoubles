@@ -1,6 +1,7 @@
 package ch.ma3.alcor.testdoubles;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -19,6 +20,16 @@ public class BtcIndicatorShould {
     void setUp() {
     }
 
+    @Test
+    void printLine() {
+        int price = 543;
+        float percent24h = 0.3f;
+        String printed = new BtcIndicator(
+                new PriceIndicator(price),
+                new ColorIndicator(percent24h))
+                .print();
+        assertThat(printed, is("543.- GREEN"));
+    }
 
     @ParameterizedTest
     @CsvSource({
