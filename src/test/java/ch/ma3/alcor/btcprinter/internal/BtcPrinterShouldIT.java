@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class BtcPrinterShouldIT {
+
     @Test
     void smoke() {
         Main.main();
