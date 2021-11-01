@@ -10,7 +10,6 @@ public final class BtcPrinterService {
         this.linePrinter = new LinePrinter(btcDataSource.getData());
     }
 
-
     public void print() {
         terminalProxy.write(linePrinter.print());
     }
