@@ -31,7 +31,7 @@ public class BtcIndicatorShould {
         int price = 543;
         float percent24h = 0.3f;
         BtcDataSource btcDataSource = mock(BtcDataSource.class);
-        when(btcDataSource.getData()).thenReturn(new BtcData(price, percent24h));
+        when(btcDataSource.getData()).thenReturn(new BtcData(new Price(price), new Percent24h(percent24h)));
 
         new BtcIndicator(btcDataSource).print();
 
@@ -39,12 +39,12 @@ public class BtcIndicatorShould {
 
     @Test
     void printLine() {
-        int price = 543;
-        float percent24h = 0.3f;
-        String printed = new BtcIndicator(
-                new PriceIndicator(price),
-                new ColorIndicator(percent24h))
-                .print();
+        Price price = new Price(543);
+        Percent24h percent24h = new Percent24h(0.3f);
+        BtcIndicator btcIndicator = new BtcIndicator(price, percent24h);
+
+        String printed = btcIndicator.print();
+
         assertThat(printed, is("543.- GREEN"));
     }
 
@@ -53,8 +53,11 @@ public class BtcIndicatorShould {
             "123,'123.-'",
             "421,'421.-'"
     })
-    void printPriceOfBitcoin(int price, String expectedPrint) {
-        String printed = new PriceIndicator(price).printPrice();
+    void printPriceOfBitcoin(int priceInt, String expectedPrint) {
+        Price price = new Price(priceInt);
+
+        String printed = price.toString();
+
         assertThat(printed, is(expectedPrint));
     }
 
@@ -63,8 +66,11 @@ public class BtcIndicatorShould {
             "0.5,'GREEN'",
             "-0.5,'RED'"
     })
-    void printGreenOrRed_(float percent24h, String expectedPrint) {
-        String printed = new ColorIndicator(percent24h).print();
+    void printGreenOrRed_(float percent24hFloat, String expectedPrint) {
+        Percent24h percent24h = new Percent24h(percent24hFloat);
+
+        String printed = percent24h.toString();
+
         assertThat(printed, is(expectedPrint));
     }
 
