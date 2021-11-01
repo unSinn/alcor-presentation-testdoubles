@@ -9,16 +9,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class BtcIndicatorShould {
+public class BtcPrinterServiceShould {
 
     /**
      * Requirements
-     * - Display Price of Bitcoin
+     * - Display Price of Bitcoin in the Termnial
      * - Indicate Green when price increased in the last 24h, Red if not
      */
 
@@ -28,22 +27,32 @@ public class BtcIndicatorShould {
 
     @Test
     void readFromSource() {
-        int price = 543;
-        float percent24h = 0.3f;
         BtcDataSource btcDataSource = mock(BtcDataSource.class);
-        when(btcDataSource.getData()).thenReturn(new BtcData(new Price(price), new Percent24h(percent24h)));
+        when(btcDataSource.getData()).thenReturn(new BtcData(new Price(543), new Percent24h(0.3f)));
 
-        new BtcIndicator(btcDataSource).print();
-
+        new BtcPrinterService(btcDataSource, mock(TerminalProxy.class)).print();
     }
 
     @Test
-    void printLine() {
-        Price price = new Price(543);
-        Percent24h percent24h = new Percent24h(0.3f);
-        BtcIndicator btcIndicator = new BtcIndicator(price, percent24h);
+    void writeToTerminal() {
+        int price = 543;
+        float percent24h = 0.3f;
+        BtcDataSource btcDataSource = mock(BtcDataSource.class);
+        TerminalProxy terminalProxy = mock(TerminalProxy.class);
+        when(btcDataSource.getData()).thenReturn(new BtcData(new Price(price), new Percent24h(percent24h)));
 
-        String printed = btcIndicator.print();
+        new BtcPrinterService(btcDataSource, terminalProxy).print();
+
+        verify(terminalProxy).write("543.- GREEN");
+    }
+
+
+    @Test
+    void printLine() {
+        BtcData btcData = new BtcData(new Price(543), new Percent24h(0.3f));
+        LinePrinter linePrinter = new LinePrinter(btcData);
+
+        String printed = linePrinter.print();
 
         assertThat(printed, is("543.- GREEN"));
     }
@@ -66,7 +75,7 @@ public class BtcIndicatorShould {
             "0.5,'GREEN'",
             "-0.5,'RED'"
     })
-    void printGreenOrRed_(float percent24hFloat, String expectedPrint) {
+    void printGreenOrRed(float percent24hFloat, String expectedPrint) {
         Percent24h percent24h = new Percent24h(percent24hFloat);
 
         String printed = percent24h.toString();
