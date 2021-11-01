@@ -1,5 +1,9 @@
-package ch.ma3.alcor.testdoubles;
+package ch.ma3.alcor.btcprinter.internal;
 
+import ch.ma3.alcor.btcprinter.internal.BtcDataSource;
+import ch.ma3.alcor.btcprinter.internal.BtcPrinterService;
+import ch.ma3.alcor.btcprinter.internal.Price;
+import ch.ma3.alcor.btcprinter.internal.TerminalProxy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

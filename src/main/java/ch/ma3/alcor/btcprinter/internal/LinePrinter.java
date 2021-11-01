@@ -1,4 +1,4 @@
-package ch.ma3.alcor.testdoubles;
+package ch.ma3.alcor.btcprinter.internal;
 
 public record LinePrinter(BtcData btcData) {
     public String print() {
