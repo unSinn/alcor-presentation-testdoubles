@@ -71,19 +71,6 @@ public class BtcPrinterShould {
             "0.5,'GREEN'",
             "-0.5,'RED'"
     })
-    void printGreenOrRed(float percent24hFloat, String expectedPrint) {
-        Percent24h percent24h = new Percent24h(percent24hFloat);
-
-        String printed = percent24h.toString();
-
-        assertThat(printed, is(expectedPrint));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-            "0.5,'GREEN'",
-            "-0.5,'RED'"
-    })
     void printGreenOrRed(float percent24hFloat, Color expectedColor) {
         Percent24h percent24h = new Percent24h(percent24hFloat);
 
