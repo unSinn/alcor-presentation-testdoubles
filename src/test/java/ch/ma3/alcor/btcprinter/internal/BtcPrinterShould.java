@@ -30,14 +30,6 @@ public class BtcPrinterShould {
     }
 
     @Test
-    void readFromSource() {
-        BtcDataSource btcDataSource = mock(BtcDataSource.class);
-        when(btcDataSource.getData()).thenReturn(new BtcData(new Price(543), new Percent24h(0.3f)));
-
-        new BtcPrinterService(btcDataSource, mock(TerminalProxy.class)).print();
-    }
-
-    @Test
     void writeToTerminal() {
         int price = 543;
         float percent24h = 0.3f;
@@ -85,6 +77,19 @@ public class BtcPrinterShould {
         String printed = percent24h.toString();
 
         assertThat(printed, is(expectedPrint));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "0.5,'GREEN'",
+            "-0.5,'RED'"
+    })
+    void printGreenOrRed(float percent24hFloat, Color expectedColor) {
+        Percent24h percent24h = new Percent24h(percent24hFloat);
+
+        Color printed = percent24h.getColor();
+
+        assertThat(printed, is(expectedColor));
     }
 
 
