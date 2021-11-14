@@ -2,6 +2,9 @@ plugins {
     java
 }
 
+java.sourceCompatibility = JavaVersion.VERSION_16
+java.targetCompatibility = JavaVersion.VERSION_16
+
 group = "ch.ma3"
 version = "1.0-SNAPSHOT"
 
@@ -11,6 +14,9 @@ repositories {
 
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.22")
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    testCompileOnly("org.projectlombok:lombok:1.18.22")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.0")

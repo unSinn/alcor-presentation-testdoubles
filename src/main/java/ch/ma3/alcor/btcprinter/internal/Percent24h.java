@@ -1,5 +1,7 @@
 package ch.ma3.alcor.btcprinter.internal;
 
+import java.util.Objects;
+
 import static ch.ma3.alcor.btcprinter.internal.Color.RED;
 
 public record Percent24h(float value) {
